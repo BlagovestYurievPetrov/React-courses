@@ -12,11 +12,21 @@ class App extends React.Component {
         order: {}
     }
     componentDidMount() {
-       this.ref = base.syncState(`${this.props.match.params.storeId}/fishes`, {
-        context: this,
-        state: 'fishes'
+        const localStorageRef = localStorage.getItem(this.props.match.params.storeId);
+        if (localStorageRef) {
+            this.setState({order: JSON.parse(localStorageRef)})
+        }
+        this.ref = base.syncState(`${this.props.match.params.storeId}/fishes`, {
+            context: this,
+            state: 'fishes'
 
-       })
+        })
+    }
+    componentDidUpdate() {
+        localStorage.setItem(this.props.match.params.storeId,JSON.stringify(this.state.order));
+    }
+    componentWillUnmount() {
+        base.removeBinding(this.ref);
     }
     loadSampleFishes = () => {
         this.setState({ fishes });
@@ -37,10 +47,10 @@ class App extends React.Component {
                 <div className="menu">
                     <Header tagline="Fresh seafood market" />
                     <ul className="fishes">
-                       {Object.keys(this.state.fishes).map(key=><Fish key={key} index={key} details={this.state.fishes[key]} addToOrder={this.addToOrder}/>)}
+                        {Object.keys(this.state.fishes).map(key => <Fish key={key} index={key} details={this.state.fishes[key]} addToOrder={this.addToOrder} />)}
                     </ul>
                 </div>
-                <Order fishes={this.state.fishes} order={this.state.order}/>
+                <Order fishes={this.state.fishes} order={this.state.order} />
                 <Inventory addFish={this.addFish} loadSampleFishes={this.loadSampleFishes} />
             </div>
         )
