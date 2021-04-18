@@ -4,11 +4,19 @@ import Order from './Order.js';
 import Inventory from './Inventory.js';
 import fishes from '../sample-fishes.js';
 import Fish from './Fish.js';
+import base from '../base.js';
 
 class App extends React.Component {
     state = {
         fishes: {},
         order: {}
+    }
+    componentDidMount() {
+       this.ref = base.syncState(`${this.props.match.params.storeId}/fishes`, {
+        context: this,
+        state: 'fishes'
+
+       })
     }
     loadSampleFishes = () => {
         this.setState({ fishes });
