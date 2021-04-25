@@ -12,7 +12,12 @@ const defaultState = {
     comments
 }
 
-export const store = createStore(rootReducer, defaultState);
+const enhancers = compose(
+window.devToolsExtension ? window.devToolsExtension() : (f) => f 
+
+);
+
+export const store = createStore(rootReducer, defaultState, enhancers);
 export const history = syncHistoryWithStore(browserHistory, store);
 
 if(module.hot){
