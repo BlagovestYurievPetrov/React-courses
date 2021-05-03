@@ -1,11 +1,12 @@
 import React from 'react';
+import Page from '../components/Page';
 
 class Index extends React.Component {
   render() {
     return (
-      <div>
+      <Page>
         <p>Index</p>
-      </div>
+      </Page>
     );
   }
 }
