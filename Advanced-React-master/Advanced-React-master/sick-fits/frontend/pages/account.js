@@ -1,13 +1,3 @@
-import React from 'react';
-
-class Account extends React.Component {
-  render() {
-    return (
-      <div>
-        <p>Account</p>
-      </div>
-    );
-  }
+export default function AccountPage() {
+  return <p>Account page</p>;
 }
-
-export default Account;

@@ -1,13 +1,3 @@
-import React from 'react';
-
-class Sell extends React.Component {
-  render() {
-    return (
-      <div>
-        <p>Sell</p>
-      </div>
-    );
-  }
+export default function SellPage() {
+  return <p>Sell page!</p>;
 }
-
-export default Sell;
