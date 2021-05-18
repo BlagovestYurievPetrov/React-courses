@@ -58,12 +58,6 @@ export default function UpdateProduct({ id }) {
           },
         }).catch(console.error);
         console.log(res);
-        // TODO: HAndle SUbumit
-        // const res = await createProduct();
-        // clearForm();
-        // Router.push({
-        //   pathname: `/product/${res.data.createProduct.id}`,
-        // });
       }}
     >
       <DisplayError error={error || updateError} />
