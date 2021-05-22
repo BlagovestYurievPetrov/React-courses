@@ -3,6 +3,7 @@ import 'dotenv/config';
 import { config, createSchema } from '@keystone-next/keystone/schema';
 import { User } from './schemas/User';
 import { Product } from './schemas/Product';
+import { CartItem } from './schemas/CartItem';
 import { createAuth } from '@keystone-next/auth';
 import { withItemData, statelessSessions } from '@keystone-next/keystone/session';
 import { ProductImage } from './schemas/ProductImage';
@@ -51,6 +52,7 @@ export default withAuth(config({
         User,
         Product,
         ProductImage,
+        CartItem,
     }),
     ui: {
         // TODO: Change this for roles
