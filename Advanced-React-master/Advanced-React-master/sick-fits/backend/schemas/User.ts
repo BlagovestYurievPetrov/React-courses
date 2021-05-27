@@ -18,7 +18,8 @@ export const User = list({
 
 
             }
-        })
-        // TODO: add roles,cart,orders
+        }),
+        orders: relationship({ ref: 'Order.user', many: true })
+
     },
 });
