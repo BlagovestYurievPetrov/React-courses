@@ -63,6 +63,7 @@ id
         console.log(err);
         throw new Error(err.message);
     })
+    console.log(charge);
 }
 
 export default checkout;
