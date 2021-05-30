@@ -17,6 +17,7 @@ import 'dotenv/config';
 import { insertSeedData } from './seed-data';
 import { sendPasswordResetEmail } from './lib/mail';
 import { extendGraphqlSchema } from './mutations';
+import { permissionsList } from './schemas/fields';
 
 function check(name: string) { }
 
@@ -82,7 +83,7 @@ export default withAuth(
         },
         session: withItemData(statelessSessions(sessionConfig), {
             // GraphQL Query
-            User: 'id name email',
+            User: `id name email role { ${permissionsList.join(' ')} }`,
         }),
     })
 );
