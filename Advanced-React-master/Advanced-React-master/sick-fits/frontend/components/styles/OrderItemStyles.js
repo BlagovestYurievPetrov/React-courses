@@ -25,7 +25,7 @@ const OrderItemStyles = styled.li`
   }
   .order-meta {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     display: grid;
     grid-gap: 1rem;
     text-align: center;
