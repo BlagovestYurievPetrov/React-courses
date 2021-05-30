@@ -26,7 +26,7 @@ async function checkout(
         name
         email
         cart {
-id
+            id
             quantity
             product {
                 name
@@ -45,14 +45,14 @@ id
         `
 
     });
-    console.dir(user, { depth: null });
+    // console.dir(user, { depth: null });
 
     const cartItems = user.cart.filter(cartItem => cartItem.product);
 
     const amount = cartItems.reduce(function (tally: number, cartItem: CartItemCreateInput) {
         return tally + cartItem.quantity * cartItem.product.price;
     }, 0);
-    console.log(amount);
+    // console.log(amount);
 
     const charge = await stripeConfig.paymentIntents.create({
         amount,
@@ -62,17 +62,16 @@ id
     }).catch(err => {
         console.log(err);
         throw new Error(err.message);
-    })
-    console.log(charge);
+    });
+
 
     const orderItems = cartItems.map(cartItem => {
         const orderItem = {
             name: cartItem.product.name,
             description: cartItem.product.description,
             price: cartItem.product.price,
-            quantity: cartItem.price,
+            quantity: cartItem.quantity,
             photo: { connect: { id: cartItem.product.photo.id } },
-
         }
         return orderItem;
     })
