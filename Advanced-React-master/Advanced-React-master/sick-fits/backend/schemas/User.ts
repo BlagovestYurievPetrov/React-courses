@@ -1,10 +1,21 @@
 /*eslint-disable */
 import { list } from '@keystone-next/keystone/schema';
 import { text, password, relationship } from '@keystone-next/fields';
+import { permissions, rules } from '../access';
 
 export const User = list({
-    // acces:
+    access: {
+        create: () => true,
+        read: rules.canManageUsers,
+        update: rules.canManageUsers,
+        delete: permissions.canManageUsers,
+    },
     // ui
+    ui: {
+        hideCreate: (args) => !permissions.canManageUsers(args),
+        hideDelete: (args) => !permissions.canManageUsers(args),
+
+    },
     fields: {
         name: text({ isRequired: true }),
         email: text({ isRequired: true, isUnique: true }),
@@ -22,7 +33,9 @@ export const User = list({
         orders: relationship({ ref: 'Order.user', many: true }),
         role: relationship({
             ref: 'Role.assignedTo',
-            // TODO add access control
+            access: {
+                create: permissions.canManageUsers,
+            }
         }),
         products: relationship({
             ref: 'Product.user',

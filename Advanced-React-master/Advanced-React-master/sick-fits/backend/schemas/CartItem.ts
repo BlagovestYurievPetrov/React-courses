@@ -1,10 +1,15 @@
 /* eslint-disable */
 import { integer, relationship, select, text } from '@keystone-next/fields';
 import { list } from '@keystone-next/keystone/schema';
+import { isSignedIn, rules } from '../access';
 
 export const CartItem = list({
-    // TODO:
-    // acces:
+    access: {
+        create: isSignedIn,
+        read: rules.canOrder,
+        update: rules.canOrder,
+        delete: rules.canOrder,
+    },
     fields: {
         // TODO: Custom label
         quantity: integer({
